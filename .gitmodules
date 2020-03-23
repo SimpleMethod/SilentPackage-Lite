@@ -1,0 +1,3 @@
+[submodule "client/openhardwaremonitor"]
+	path = client/openhardwaremonitor
+	url = https://github.com/SimpleMethod/openhardwaremonitor
