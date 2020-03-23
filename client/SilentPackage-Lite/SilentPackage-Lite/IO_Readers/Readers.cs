@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -13,8 +14,13 @@ using System.Text.Json.Serialization;
 
 namespace SilentPackage_Lite.IO_Readers
 {
+    public class Drivers
+    {
+        [JsonPropertyName("Drivers")]
+        public Queue<Drive> DriveQueue { get; set; }
+    }
 
-    public class TelemetryModel
+    public class CpuTelemetryModel
     {
         [JsonPropertyName("CpuTemperature")]
         public List<CpuTemp> CpuTemps { get; set; }
@@ -90,7 +96,7 @@ namespace SilentPackage_Lite.IO_Readers
 
         }
 
-        public void GetCpuTelemetry()
+        public void CpuTelemetry()
         {
             List<CpuTemp> cpuTempList = new List<CpuTemp>();
             List<CpuClock> cpuClocksList = new List<CpuClock>();
@@ -106,40 +112,59 @@ namespace SilentPackage_Lite.IO_Readers
                     if (computer.Hardware[0].Sensors[j].SensorType == SensorType.Temperature)
                     {
                         cpuTempList.Add(new CpuTemp(computer.Hardware[0].Sensors[j].Name.ToString(),
-                            (int) computer.Hardware[0].Sensors[j].Value));
+                            (int)computer.Hardware[0].Sensors[j].Value));
                     }
 
                     if (computer.Hardware[0].Sensors[j].SensorType == SensorType.Clock)
                     {
                         cpuClocksList.Add(new CpuClock(computer.Hardware[0].Sensors[j].Name,
-                            (float) computer.Hardware[0].Sensors[j].Value));
+                            (float)computer.Hardware[0].Sensors[j].Value));
                     }
 
                     if (computer.Hardware[0].Sensors[j].SensorType == SensorType.Load)
                     {
                         cpuLoadsList.Add(new CpuLoad(computer.Hardware[0].Sensors[j].Name,
-                            (float) computer.Hardware[0].Sensors[j].Value));
+                            (float)computer.Hardware[0].Sensors[j].Value));
                     }
                 }
             }
 
-            TelemetryModel test = new TelemetryModel();
-            test.CpuTemps = cpuTempList;
-            test.CpuClocks = cpuClocksList;
-            test.CpuLoads = cpuLoadsList;
-            string json = JsonSerializer.Serialize(test);
+            CpuTelemetryModel cpuTelemetry = new CpuTelemetryModel();
+            cpuTelemetry.CpuTemps = cpuTempList;
+            cpuTelemetry.CpuClocks = cpuClocksList;
+            cpuTelemetry.CpuLoads = cpuLoadsList;
+            string json = JsonSerializer.Serialize(cpuTelemetry);
             Console.WriteLine(json);
             computer.Close();
         }
 
 
-        public void GetRamTelemetry()
+        public string MainboardTelemetry()
         {
             Computer computer = new Computer();
-            
             computer.Open();
             computer.MainboardEnabled = true;
-            Console.WriteLine(computer.Hardware[0].GetReport());
+            return computer.Hardware[0].GetReport();
+        }
+
+        public string DriveTelemetry()
+        {
+            Drivers drivers = new Drivers();
+            Queue<Drive> queue = new Queue<Drive>();
+            Computer computer = new Computer();
+            computer.Open();
+            computer.HDDEnabled = true;
+            for (int j = 0; j < computer.Hardware.Length; j++)
+            {
+                if (computer.Hardware[j].HardwareType == HardwareType.HDD)
+                {
+                    var drive = JsonSerializer.Deserialize<Drive>(computer.Hardware[j].GetReport());
+                    queue.Enqueue(drive);
+                }
+            }
+
+            drivers.DriveQueue = queue;
+            return JsonSerializer.Serialize(drivers);
         }
     }
 

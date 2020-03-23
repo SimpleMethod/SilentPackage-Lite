@@ -11,14 +11,9 @@ namespace SilentPackage_Lite
         static void Main(string[] args)
         {
             Telemetry telemetry = Telemetry.GetInstance();
-
-        Console.WriteLine("XD");
-        telemetry.GetRamTelemetry();
-            for (;;)
-           {
-           //  telemetry.GetRamTelemetry();
-          //   Thread.Sleep(5000);
-           }
+            Console.WriteLine(telemetry.DriveTelemetry());
+            Console.ReadKey();
+        }
         }
     }
-}
+
