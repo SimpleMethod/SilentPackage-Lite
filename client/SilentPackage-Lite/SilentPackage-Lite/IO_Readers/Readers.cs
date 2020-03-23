@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Management;
+using System.Runtime.InteropServices;
 using System.Text;
 using OpenHardwareMonitor.Hardware;
 using OpenHardwareMonitor.Collections;
@@ -14,6 +15,12 @@ using System.Text.Json.Serialization;
 
 namespace SilentPackage_Lite.IO_Readers
 {
+    public class MemoryRam
+    {
+        public double TotalPhysicalMemory { get; set; }
+        public double TotalAvailableMemory { get; set; }
+
+    }
     public class Drivers
     {
         [JsonPropertyName("Drivers")]
@@ -96,7 +103,7 @@ namespace SilentPackage_Lite.IO_Readers
 
         }
 
-        public void CpuTelemetry()
+        public string CpuTelemetry()
         {
             List<CpuTemp> cpuTempList = new List<CpuTemp>();
             List<CpuClock> cpuClocksList = new List<CpuClock>();
@@ -128,23 +135,33 @@ namespace SilentPackage_Lite.IO_Readers
                     }
                 }
             }
-
+            computer.Close();
             CpuTelemetryModel cpuTelemetry = new CpuTelemetryModel();
             cpuTelemetry.CpuTemps = cpuTempList;
             cpuTelemetry.CpuClocks = cpuClocksList;
             cpuTelemetry.CpuLoads = cpuLoadsList;
-            string json = JsonSerializer.Serialize(cpuTelemetry);
-            Console.WriteLine(json);
-            computer.Close();
+            return JsonSerializer.Serialize(cpuTelemetry);
+            
         }
 
+        public string GpuTelemetry()
+        {
+            Computer computer = new Computer();
+            computer.Open();
+            computer.GPUEnabled = true;
+            var temp= computer.GetReport();
+            computer.Close();
+            return temp;
+        }
 
         public string MainboardTelemetry()
         {
             Computer computer = new Computer();
             computer.Open();
             computer.MainboardEnabled = true;
-            return computer.Hardware[0].GetReport();
+            var temp = computer.Hardware[0].GetReport();;
+            computer.Close();
+            return temp;
         }
 
         public string DriveTelemetry()
@@ -162,9 +179,22 @@ namespace SilentPackage_Lite.IO_Readers
                     queue.Enqueue(drive);
                 }
             }
-
+            computer.Close();
             drivers.DriveQueue = queue;
             return JsonSerializer.Serialize(drivers);
+        }
+        [DllImport("kernel32.dll")]
+        static extern bool GetPhysicallyInstalledSystemMemory(out long TotalMemoryInKilobytes);
+
+        public string RamTelemetry()
+        {
+            MemoryRam memoryRam = new MemoryRam();
+            long phymemory;
+            GetPhysicallyInstalledSystemMemory(out phymemory);
+            var performance = new System.Diagnostics.PerformanceCounter("Memory", "Available KBytes");
+            memoryRam.TotalPhysicalMemory = phymemory / 1024.00 / 1024.00;
+            memoryRam.TotalAvailableMemory = performance.RawValue / 1024.00;
+            return JsonSerializer.Serialize(memoryRam);
         }
     }
 
