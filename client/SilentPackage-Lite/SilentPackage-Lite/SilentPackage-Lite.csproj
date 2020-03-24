@@ -115,6 +115,7 @@
     <Compile Include="IO_Readers\DataModel.cs" />
     <Compile Include="HttpClient.cs" />
     <Compile Include="IO_Readers\Readers.cs" />
+    <Compile Include="ThreadHandle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -55,28 +55,46 @@ namespace SilentPackage_Lite.IO_Readers
             Computer computer = new Computer();
             computer.Open();
             computer.CPUEnabled = true;
-            if (computer.Hardware[0].HardwareType == HardwareType.CPU)
+            try
             {
-                for (int j = 0; j < computer.Hardware[0].Sensors.Length; j++)
+                if (computer.Hardware[0].HardwareType == HardwareType.CPU)
                 {
-                    if (computer.Hardware[0].Sensors[j].SensorType == SensorType.Temperature)
+                    for (int j = 0; j < computer.Hardware[0].Sensors.Length; j++)
                     {
-                        cpuTempList.Add(new DataModel.CpuTemp(computer.Hardware[0].Sensors[j].Name.ToString(),
-                            (int)computer.Hardware[0].Sensors[j].Value));
-                    }
+                        if (computer.Hardware[0].Sensors[j].SensorType == SensorType.Temperature)
+                        {
+                            if (computer.Hardware[0].Sensors[j].Value != null)
+                            {
+                                cpuTempList.Add(new DataModel.CpuTemp(computer.Hardware[0].Sensors[j].Name.ToString(),
+                                    (int)computer.Hardware[0].Sensors[j].Value));
+                            }
+                            
+                        }
 
-                    if (computer.Hardware[0].Sensors[j].SensorType == SensorType.Clock)
-                    {
-                        cpuClocksList.Add(new DataModel.CpuClock(computer.Hardware[0].Sensors[j].Name,
-                            (float)computer.Hardware[0].Sensors[j].Value));
-                    }
+                        if (computer.Hardware[0].Sensors[j].SensorType == SensorType.Clock)
+                        {
+                            if (computer.Hardware[0].Sensors[j].Value != null)
+                            {
+                                cpuTempList.Add(new DataModel.CpuTemp(computer.Hardware[0].Sensors[j].Name.ToString(),
+                                    (int)computer.Hardware[0].Sensors[j].Value));
+                            }
+                        }
 
-                    if (computer.Hardware[0].Sensors[j].SensorType == SensorType.Load)
-                    {
-                        cpuLoadsList.Add(new DataModel.CpuLoad(computer.Hardware[0].Sensors[j].Name,
-                            (float)computer.Hardware[0].Sensors[j].Value));
+                        if (computer.Hardware[0].Sensors[j].SensorType == SensorType.Load)
+                        {
+                            if (computer.Hardware[0].Sensors[j].Value != null)
+                            {
+                                cpuTempList.Add(new DataModel.CpuTemp(computer.Hardware[0].Sensors[j].Name.ToString(),
+                                    (int)computer.Hardware[0].Sensors[j].Value));
+                            }
+                        }
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
             computer.Close();
             DataModel.CpuTelemetryModel cpuTelemetry = new DataModel.CpuTelemetryModel();
