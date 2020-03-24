@@ -11,7 +11,7 @@ namespace SilentPackage_Lite
         static void Main(string[] args)
         {
             Telemetry telemetry = Telemetry.GetInstance();
-            Console.WriteLine(telemetry.RamTelemetry());
+            Console.WriteLine(telemetry.CpuTelemetry());
             Console.ReadKey();
         }
         }
