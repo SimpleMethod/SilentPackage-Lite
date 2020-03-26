@@ -75,7 +75,7 @@ namespace SilentPackage_Lite.IO_Readers
                         {
                             if (computer.Hardware[0].Sensors[j].Value != null)
                             {
-                                cpuTempList.Add(new DataModel.CpuTemp(computer.Hardware[0].Sensors[j].Name.ToString(),
+                                cpuClocksList.Add(new DataModel.CpuClock(computer.Hardware[0].Sensors[j].Name.ToString(),
                                     (int)computer.Hardware[0].Sensors[j].Value));
                             }
                         }
@@ -84,7 +84,7 @@ namespace SilentPackage_Lite.IO_Readers
                         {
                             if (computer.Hardware[0].Sensors[j].Value != null)
                             {
-                                cpuTempList.Add(new DataModel.CpuTemp(computer.Hardware[0].Sensors[j].Name.ToString(),
+                                cpuLoadsList.Add(new DataModel.CpuLoad(computer.Hardware[0].Sensors[j].Name.ToString(),
                                     (int)computer.Hardware[0].Sensors[j].Value));
                             }
                         }
