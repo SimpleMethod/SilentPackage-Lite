@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import javax.validation.constraints.NotEmpty;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "CpuTemperature",
@@ -13,11 +15,13 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "CpuLoad"
 })
 public class CPUTelemetry {
-
+    @NotEmpty(message = "The CpuTemperature list cannot be empty.")
     @JsonProperty("CpuTemperature")
     public List<CPUTemperature> cpuTemperature = new ArrayList<>();
+    @NotEmpty(message = "The CPUClock list cannot be empty.")
     @JsonProperty("CpuClock")
     public List<CPUClock> cpuClock = new ArrayList<>();
+    @NotEmpty(message = "The CPULoad list cannot be empty.")
     @JsonProperty("CpuLoad")
     public List<CPULoad> cpuLoad = new ArrayList<>();
 
@@ -41,4 +45,12 @@ public class CPUTelemetry {
         this.cpuLoad = cpuLoad;
     }
 
+    @Override
+    public String toString() {
+        return "CPUTelemetry{" +
+                "cpuTemperature=" + cpuTemperature +
+                ", cpuClock=" + cpuClock +
+                ", cpuLoad=" + cpuLoad +
+                '}';
+    }
 }

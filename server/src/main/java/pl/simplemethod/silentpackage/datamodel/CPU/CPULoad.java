@@ -4,6 +4,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "Name",
@@ -11,8 +16,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class CPULoad {
 
+    @NotEmpty
     @JsonProperty("Name")
     public String name;
+    @NotEmpty @Max(1000) @Min(0)
     @JsonProperty("Load")
     public Integer load;
 
@@ -34,4 +41,11 @@ public class CPULoad {
         this.load = load;
     }
 
+    @Override
+    public String toString() {
+        return "CPULoad{" +
+                "name='" + name + '\'' +
+                ", load=" + load +
+                '}';
+    }
 }

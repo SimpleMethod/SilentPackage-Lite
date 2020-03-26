@@ -6,6 +6,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "BiosVendor",
@@ -20,22 +24,31 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class MainboardTelemetry {
 
+    @NotEmpty
     @JsonProperty("BiosVendor")
     public String biosVendor;
+    @NotEmpty
     @JsonProperty("BiosVersion")
     public String biosVersion;
+    @NotEmpty
     @JsonProperty("MainboardManufacturer")
     public String mainboardManufacturer;
+    @NotEmpty
     @JsonProperty("MainboardName")
     public String mainboardName;
+    @NotEmpty
     @JsonProperty("ProcessorManufacturer")
     public String processorManufacturer;
+    @NotEmpty
     @JsonProperty("ProcessorVersion")
     public String processorVersion;
+    @NotEmpty
     @JsonProperty("ProcessorCoreCount")
     public String processorCoreCount;
+    @NotEmpty
     @JsonProperty("ProcessorThreadCount")
     public String processorThreadCount;
+    @NotEmpty
     @JsonProperty("Memory")
     public List<Memory> memory = new ArrayList<>();
 

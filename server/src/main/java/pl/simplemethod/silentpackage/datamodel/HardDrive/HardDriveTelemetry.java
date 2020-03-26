@@ -6,12 +6,16 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "Drivers"
 })
 public class HardDriveTelemetry {
 
+    @NotEmpty
     @JsonProperty("Drivers")
     public List<HardDriveInfo> hardDrives = new ArrayList<>();
 
