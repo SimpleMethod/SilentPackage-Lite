@@ -1,4 +1,4 @@
-package pl.simplemethod.silentpackage.dataModel.Mainboard;
+package pl.simplemethod.silentpackage.dataModel.Motherboard;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -12,7 +12,7 @@ namespace SilentPackage_Lite
 {
     class HttpClient
     {
-        public string GetWebRequest(string url, string method, string data)
+        public string MakeWebRequest(string url, string method, string data)
         {
             WebRequest webRequest;
             webRequest = WebRequest.Create(url);
@@ -22,15 +22,25 @@ namespace SilentPackage_Lite
             {
                 stream.Write(data);
             }
-            using (HttpWebResponse response = webRequest.GetResponse() as HttpWebResponse)
+
+            try
             {
-                Encoding enc = Encoding.GetEncoding("utf-8");
-                StreamReader loResponseStream = new StreamReader(response.GetResponseStream(), enc);
-                string strResult = loResponseStream.ReadToEnd();
-                loResponseStream.Close();
-                response.Close();
-                return strResult;
+                using (HttpWebResponse response = webRequest.GetResponse() as HttpWebResponse)
+                {
+                    Encoding enc = Encoding.GetEncoding("utf-8");
+                    StreamReader loResponseStream = new StreamReader(response.GetResponseStream(), enc);
+                    string strResult = loResponseStream.ReadToEnd();
+                    loResponseStream.Close();
+                    response.Close();
+                    return strResult;
+                }
             }
+            catch (System.Net.WebException  e)
+            {
+                Console.WriteLine(e);
+                return e.ToString();
+            }
+            
         }
     }
 }

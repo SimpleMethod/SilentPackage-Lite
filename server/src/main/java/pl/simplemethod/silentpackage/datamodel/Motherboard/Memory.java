@@ -1,4 +1,4 @@
-package pl.simplemethod.silentpackage.dataModel.Mainboard;
+package pl.simplemethod.silentpackage.dataModel.Motherboard;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

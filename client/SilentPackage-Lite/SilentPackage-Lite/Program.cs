@@ -10,17 +10,18 @@ namespace SilentPackage_Lite
     {
         static void Main(string[] args)
         {
+            HttpClient client = new HttpClient();
             Telemetry telemetry = Telemetry.GetInstance();
             Console.WriteLine("CPU:");
-            Console.WriteLine(telemetry.CpuTelemetry());
+            client.MakeWebRequest(@"http://127.0.0.1:2137/1.0/cpu", "POST", telemetry.CpuTelemetry());
             Console.WriteLine("RAM:");
-            Console.WriteLine(telemetry.RamTelemetry());
+            client.MakeWebRequest(@"http://127.0.0.1:2137/1.0/cpu", "POST", telemetry.RamTelemetry());
             Console.WriteLine("GPU:");
-            Console.WriteLine(telemetry.GpuTelemetry());
+            client.MakeWebRequest(@"http://127.0.0.1:2137/1.0/gpu", "POST", telemetry.GpuTelemetry());
             Console.WriteLine("Mainboard:");
-            Console.WriteLine(telemetry.MainboardSpecifications());
+            client.MakeWebRequest(@"http://127.0.0.1:2137/1.0/motherboard", "POST", telemetry.MainboardSpecifications());
             Console.WriteLine("Mainboard:");
-            Console.WriteLine(telemetry.DriveTelemetry());
+            client.MakeWebRequest(@"http://127.0.0.1:2137/1.0/hardDrive", "POST", telemetry.DriveTelemetry());
             Console.ReadKey();
         }
         }
