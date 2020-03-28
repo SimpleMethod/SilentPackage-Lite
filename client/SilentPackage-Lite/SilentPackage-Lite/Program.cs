@@ -22,13 +22,19 @@ namespace SilentPackage_Lite
         static void Main(string[] args)
         {
             var getConsoleWindow = GetConsoleWindow();
-            ShowWindow(getConsoleWindow, SW_HIDE);
-            Process process = new Process();
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.FileName = "java";
-            var curDir = Directory.GetCurrentDirectory();
-            process.StartInfo.Arguments = "-jar " + curDir+ @"\silentpackage.jar";
-            process.Start();
+           // ShowWindow(getConsoleWindow, SW_HIDE);
+           try
+           {
+               Process process = new Process();
+               process.StartInfo.UseShellExecute = false;
+               process.StartInfo.FileName = "java";
+               process.StartInfo.Arguments = "-jar " + Directory.GetCurrentDirectory() + @"\silentpackage.jar";
+               process.Start();
+            }
+           catch (Exception e)
+           {
+               Console.WriteLine(e);
+           }
             ThreadHandle handle = ThreadHandle.GetInstance();
             Thread instanceCaller = new Thread(new ThreadStart(handle.MainThread));
             instanceCaller.Start();

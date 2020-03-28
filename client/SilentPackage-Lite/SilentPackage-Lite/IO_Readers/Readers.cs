@@ -49,60 +49,68 @@ namespace SilentPackage_Lite.IO_Readers
         /// <returns>Returned telemetry in JSON format.</returns>
         public string CpuTelemetry()
         {
-            List<DataModel.CpuTemp> cpuTempList = new List<DataModel.CpuTemp>();
-            List<DataModel.CpuClock> cpuClocksList = new List<DataModel.CpuClock>();
-            List<DataModel.CpuLoad> cpuLoadsList = new List<DataModel.CpuLoad>();
-
-            Computer computer = new Computer();
-            computer.Open();
-            computer.CPUEnabled = true;
             try
             {
-                if (computer.Hardware[0].HardwareType == HardwareType.CPU)
+                List<DataModel.CpuTemp> cpuTempList = new List<DataModel.CpuTemp>();
+                List<DataModel.CpuClock> cpuClocksList = new List<DataModel.CpuClock>();
+                List<DataModel.CpuLoad> cpuLoadsList = new List<DataModel.CpuLoad>();
+
+                Computer computer = new Computer();
+                computer.Open();
+                computer.CPUEnabled = true;
+                try
                 {
-                    for (int j = 0; j < computer.Hardware[0].Sensors.Length; j++)
+                    if (computer.Hardware[0].HardwareType == HardwareType.CPU)
                     {
-                        if (computer.Hardware[0].Sensors[j].SensorType == SensorType.Temperature)
+                        for (int j = 0; j < computer.Hardware[0].Sensors.Length; j++)
                         {
-                            if (computer.Hardware[0].Sensors[j].Value != null)
+                            if (computer.Hardware[0].Sensors[j].SensorType == SensorType.Temperature)
                             {
-                                cpuTempList.Add(new DataModel.CpuTemp(computer.Hardware[0].Sensors[j].Name.ToString(),
-                                    (int)computer.Hardware[0].Sensors[j].Value));
-                            }
+                                if (computer.Hardware[0].Sensors[j].Value != null)
+                                {
+                                    cpuTempList.Add(new DataModel.CpuTemp(computer.Hardware[0].Sensors[j].Name.ToString(),
+                                        (int)computer.Hardware[0].Sensors[j].Value));
+                                }
                             
-                        }
-
-                        if (computer.Hardware[0].Sensors[j].SensorType == SensorType.Clock)
-                        {
-                            if (computer.Hardware[0].Sensors[j].Value != null)
-                            {
-                                cpuClocksList.Add(new DataModel.CpuClock(computer.Hardware[0].Sensors[j].Name.ToString(),
-                                    (int)computer.Hardware[0].Sensors[j].Value));
                             }
-                        }
 
-                        if (computer.Hardware[0].Sensors[j].SensorType == SensorType.Load)
-                        {
-                            if (computer.Hardware[0].Sensors[j].Value != null)
+                            if (computer.Hardware[0].Sensors[j].SensorType == SensorType.Clock)
                             {
-                                cpuLoadsList.Add(new DataModel.CpuLoad(computer.Hardware[0].Sensors[j].Name.ToString(),
-                                    (int)computer.Hardware[0].Sensors[j].Value));
+                                if (computer.Hardware[0].Sensors[j].Value != null)
+                                {
+                                    cpuClocksList.Add(new DataModel.CpuClock(computer.Hardware[0].Sensors[j].Name.ToString(),
+                                        (int)computer.Hardware[0].Sensors[j].Value));
+                                }
+                            }
+
+                            if (computer.Hardware[0].Sensors[j].SensorType == SensorType.Load)
+                            {
+                                if (computer.Hardware[0].Sensors[j].Value != null)
+                                {
+                                    cpuLoadsList.Add(new DataModel.CpuLoad(computer.Hardware[0].Sensors[j].Name.ToString(),
+                                        (int)computer.Hardware[0].Sensors[j].Value));
+                                }
                             }
                         }
                     }
                 }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+                computer.Close();
+                DataModel.CpuTelemetryModel cpuTelemetry = new DataModel.CpuTelemetryModel();
+                cpuTelemetry.CpuTemps = cpuTempList;
+                cpuTelemetry.CpuClocks = cpuClocksList;
+                cpuTelemetry.CpuLoads = cpuLoadsList;
+                return JsonSerializer.Serialize(cpuTelemetry);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
-            computer.Close();
-            DataModel.CpuTelemetryModel cpuTelemetry = new DataModel.CpuTelemetryModel();
-            cpuTelemetry.CpuTemps = cpuTempList;
-            cpuTelemetry.CpuClocks = cpuClocksList;
-            cpuTelemetry.CpuLoads = cpuLoadsList;
-            return JsonSerializer.Serialize(cpuTelemetry);
             
         }
 
@@ -112,12 +120,20 @@ namespace SilentPackage_Lite.IO_Readers
         /// <returns>Returned telemetry in JSON format.</returns>
         public string GpuTelemetry()
         {
-            Computer computer = new Computer();
-            computer.Open();
-            computer.GPUEnabled = true;
-            var temp = computer.Hardware[0].GetReport();
-            computer.Close();
-            return temp;
+            try
+            {
+                Computer computer = new Computer();
+                computer.Open();
+                computer.GPUEnabled = true;
+                var temp = computer.Hardware[0].GetReport();
+                computer.Close();
+                return temp;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -126,12 +142,20 @@ namespace SilentPackage_Lite.IO_Readers
         /// <returns>Returned specifications in JSON format.</returns>
         public string MainboardSpecifications()
         {
-            Computer computer = new Computer();
-            computer.Open();
-            computer.MainboardEnabled = true;
-            var temp = computer.Hardware[0].GetReport();;
-            computer.Close();
-            return temp;
+            try
+            {
+                Computer computer = new Computer();
+                computer.Open();
+                computer.MainboardEnabled = true;
+                var temp = computer.Hardware[0].GetReport();;
+                computer.Close();
+                return temp;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
         /// <summary>
         ///  Getting telemetry of hard drive.
@@ -139,22 +163,30 @@ namespace SilentPackage_Lite.IO_Readers
         /// <returns>Returned telemetry in JSON format.</returns>
         public string DriveTelemetry()
         {
-            DataModel.Drivers drivers = new DataModel.Drivers();
-            Queue<Drive> queue = new Queue<Drive>();
-            Computer computer = new Computer();
-            computer.Open();
-            computer.HDDEnabled = true;
-            for (int j = 0; j < computer.Hardware.Length; j++)
+            try
             {
-                if (computer.Hardware[j].HardwareType == HardwareType.HDD)
+                DataModel.Drivers drivers = new DataModel.Drivers();
+                Queue<Drive> queue = new Queue<Drive>();
+                Computer computer = new Computer();
+                computer.Open();
+                computer.HDDEnabled = true;
+                for (int j = 0; j < computer.Hardware.Length; j++)
                 {
-                    var drive = JsonSerializer.Deserialize<Drive>(computer.Hardware[j].GetReport());
-                    queue.Enqueue(drive);
+                    if (computer.Hardware[j].HardwareType == HardwareType.HDD)
+                    {
+                        var drive = JsonSerializer.Deserialize<Drive>(computer.Hardware[j].GetReport());
+                        queue.Enqueue(drive);
+                    }
                 }
+                computer.Close();
+                drivers.DriveQueue = queue;
+                return JsonSerializer.Serialize(drivers);
             }
-            computer.Close();
-            drivers.DriveQueue = queue;
-            return JsonSerializer.Serialize(drivers);
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
         [DllImport("kernel32.dll")]
         public static extern bool GetPhysicallyInstalledSystemMemory(out long totalMemoryInKilobytes);
@@ -164,12 +196,20 @@ namespace SilentPackage_Lite.IO_Readers
         /// <returns>Returned telemetry in JSON format.</returns>
         public string RamTelemetry()
         {
-            DataModel.MemoryRam memoryRam = new DataModel.MemoryRam();
-            GetPhysicallyInstalledSystemMemory(out var phymemory);
-            var performance = new System.Diagnostics.PerformanceCounter("Memory", "Available KBytes");
-            memoryRam.TotalPhysicalMemory = phymemory / 1024.00 / 1024.00;
-            memoryRam.TotalAvailableMemory = performance.RawValue / 1024.00;
-            return JsonSerializer.Serialize(memoryRam);
+            try
+            {
+                DataModel.MemoryRam memoryRam = new DataModel.MemoryRam();
+                GetPhysicallyInstalledSystemMemory(out var phymemory);
+                var performance = new PerformanceCounter("Memory", "Available KBytes");
+                memoryRam.TotalPhysicalMemory = phymemory / 1024.00 / 1024.00;
+                memoryRam.TotalAvailableMemory = performance.RawValue / 1024.00;
+                return JsonSerializer.Serialize(memoryRam);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -178,21 +218,29 @@ namespace SilentPackage_Lite.IO_Readers
         /// <returns>Returned telemetry in JSON format.</returns>
         public string GetProcessList()
         {
-            List<DataModel.ProcessList> processLists= new List<DataModel.ProcessList>();
-            DataModel.ProcessListModel processListModel = new DataModel.ProcessListModel();
-            foreach (var preprocess in Process.GetProcesses())
+            try
             {
-                try
+                List<DataModel.ProcessList> processLists= new List<DataModel.ProcessList>();
+                DataModel.ProcessListModel processListModel = new DataModel.ProcessListModel();
+                foreach (var preprocess in Process.GetProcesses())
                 {
-                    processLists.Add(new DataModel.ProcessList(preprocess.ProcessName, preprocess.Id, preprocess.StartTime.ToString()));
+                    try
+                    {
+                        processLists.Add(new DataModel.ProcessList(preprocess.ProcessName, preprocess.Id, preprocess.StartTime.ToString()));
+                    }
+                    catch (Exception e)
+                    {
+                    }
                 }
-                catch (Exception e)
-                {
-                }
-            }
 
-            processListModel.ProcessLists = processLists;
-            return JsonSerializer.Serialize(processListModel);
+                processListModel.ProcessLists = processLists;
+                return JsonSerializer.Serialize(processListModel);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
     }
