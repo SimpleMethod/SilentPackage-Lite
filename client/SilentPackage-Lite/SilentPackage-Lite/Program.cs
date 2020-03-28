@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -21,6 +23,12 @@ namespace SilentPackage_Lite
         {
             var getConsoleWindow = GetConsoleWindow();
             ShowWindow(getConsoleWindow, SW_HIDE);
+            Process process = new Process();
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.FileName = "java";
+            var curDir = Directory.GetCurrentDirectory();
+            process.StartInfo.Arguments = "-jar " + curDir+ @"\silentpackage.jar";
+            process.Start();
             ThreadHandle handle = ThreadHandle.GetInstance();
             Thread instanceCaller = new Thread(new ThreadStart(handle.MainThread));
             instanceCaller.Start();
