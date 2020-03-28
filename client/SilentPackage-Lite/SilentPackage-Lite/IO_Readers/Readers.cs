@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using OpenHardwareMonitor.Hardware;
 using OpenHardwareMonitor.Collections;
@@ -170,6 +171,30 @@ namespace SilentPackage_Lite.IO_Readers
             memoryRam.TotalAvailableMemory = performance.RawValue / 1024.00;
             return JsonSerializer.Serialize(memoryRam);
         }
+
+        /// <summary>
+        ///  Getting process lists.
+        /// </summary>
+        /// <returns>Returned telemetry in JSON format.</returns>
+        public string GetProcessList()
+        {
+            List<DataModel.ProcessList> processLists= new List<DataModel.ProcessList>();
+            DataModel.ProcessListModel processListModel = new DataModel.ProcessListModel();
+            foreach (var preprocess in Process.GetProcesses())
+            {
+                try
+                {
+                    processLists.Add(new DataModel.ProcessList(preprocess.ProcessName, preprocess.Id, preprocess.StartTime.ToString()));
+                }
+                catch (Exception e)
+                {
+                }
+            }
+
+            processListModel.ProcessLists = processLists;
+            return JsonSerializer.Serialize(processListModel);
+        }
+
     }
 
 

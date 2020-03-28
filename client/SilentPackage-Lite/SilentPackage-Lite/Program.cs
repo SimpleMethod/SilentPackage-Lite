@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using SilentPackage_Lite.IO_Readers;
@@ -8,21 +9,21 @@ namespace SilentPackage_Lite
 {
     class Program
     {
+        [DllImport("kernel32.dll")]
+        static extern IntPtr GetConsoleWindow();
+
+        [DllImport("user32.dll")]
+        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        const int SW_HIDE = 0;
+        const int SW_SHOW = 5;
         static void Main(string[] args)
         {
-            HttpClient client = new HttpClient();
-            Telemetry telemetry = Telemetry.GetInstance();
-            Console.WriteLine("CPU:");
-            client.MakeWebRequest(@"http://127.0.0.1:2137/1.0/cpu", "POST", telemetry.CpuTelemetry());
-            Console.WriteLine("RAM:");
-            client.MakeWebRequest(@"http://127.0.0.1:2137/1.0/cpu", "POST", telemetry.RamTelemetry());
-            Console.WriteLine("GPU:");
-            client.MakeWebRequest(@"http://127.0.0.1:2137/1.0/gpu", "POST", telemetry.GpuTelemetry());
-            Console.WriteLine("Mainboard:");
-            client.MakeWebRequest(@"http://127.0.0.1:2137/1.0/motherboard", "POST", telemetry.MainboardSpecifications());
-            Console.WriteLine("Mainboard:");
-            client.MakeWebRequest(@"http://127.0.0.1:2137/1.0/hardDrive", "POST", telemetry.DriveTelemetry());
-            Console.ReadKey();
+            var getConsoleWindow = GetConsoleWindow();
+            ShowWindow(getConsoleWindow, SW_HIDE);
+            ThreadHandle handle = ThreadHandle.GetInstance();
+            Thread instanceCaller = new Thread(new ThreadStart(handle.MainThread));
+            instanceCaller.Start();
         }
         }
     }

@@ -12,19 +12,24 @@ namespace SilentPackage_Lite
 {
     class HttpClient
     {
+        /// <summary>
+        /// Creates an HTTP request.
+        /// </summary>
+        /// <param name="url">Address URL.</param>
+        /// <param name="method">HTTP query type.</param>
+        /// <param name="data">Data to be sent in RAW form.</param>
+        /// <returns>Server response.</returns>
         public string MakeWebRequest(string url, string method, string data)
         {
-            WebRequest webRequest;
-            webRequest = WebRequest.Create(url);
+            var webRequest = WebRequest.Create(url);
             webRequest.Method = method;
             webRequest.ContentType = @"application/json; charset=utf-8";
-            using (var stream = new StreamWriter(webRequest.GetRequestStream()))
-            {
-                stream.Write(data);
-            }
-
             try
             {
+                using (var stream = new StreamWriter(webRequest.GetRequestStream()))
+                {
+                    stream.Write(data);
+                }
                 using (HttpWebResponse response = webRequest.GetResponse() as HttpWebResponse)
                 {
                     Encoding enc = Encoding.GetEncoding("utf-8");
@@ -35,7 +40,7 @@ namespace SilentPackage_Lite
                     return strResult;
                 }
             }
-            catch (System.Net.WebException  e)
+            catch (WebException  e)
             {
                 Console.WriteLine(e);
                 return e.ToString();

@@ -52,5 +52,12 @@ namespace SilentPackage_Lite.IO_Readers.Tests
             Assert.IsNotNull(temp);
         }
 
+        [TestMethod()]
+        public void GetProcessListTest()
+        {
+            Telemetry telemetry = Telemetry.GetInstance();
+            string temp = telemetry.GetProcessList();
+            Assert.IsNotNull(temp);
+        }
     }
 }

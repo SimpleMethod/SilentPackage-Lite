@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -20,7 +21,8 @@ import javax.validation.constraints.NotEmpty;
         "ProcessorThreadCount",
         "Memory"
 })
-public class MainboardTelemetry {
+@Component
+public class MotherboardTelemetry {
 
     @NotEmpty
     @JsonProperty("BiosVendor")
@@ -54,7 +56,7 @@ public class MainboardTelemetry {
      * No args constructor for use in serialization
      *
      */
-    public MainboardTelemetry() {
+    public MotherboardTelemetry() {
     }
 
     /**
@@ -69,7 +71,7 @@ public class MainboardTelemetry {
      * @param processorThreadCount Thread count of CPU.
      * @param mainboardName Motherboard model.
      */
-    public MainboardTelemetry(String biosVendor, String biosVersion, String mainboardManufacturer, String mainboardName, String processorManufacturer, String processorVersion, String processorCoreCount, String processorThreadCount, List<Memory> memory) {
+    public MotherboardTelemetry(String biosVendor, String biosVersion, String mainboardManufacturer, String mainboardName, String processorManufacturer, String processorVersion, String processorCoreCount, String processorThreadCount, List<Memory> memory) {
         super();
         this.biosVendor = biosVendor;
         this.biosVersion = biosVersion;

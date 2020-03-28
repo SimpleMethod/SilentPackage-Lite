@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @JsonPropertyOrder({
         "Drivers"
 })
+@Component
 public class HardDriveTelemetry {
 
     @NotEmpty
@@ -28,7 +30,7 @@ public class HardDriveTelemetry {
 
     /**
      *
-     * @param hardDriveInfoList
+     * @param hardDriveInfoList Lists of HardDriveInfo class.
      */
     public HardDriveTelemetry(List<HardDriveInfo> hardDriveInfoList) {
         super();

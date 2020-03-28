@@ -3,6 +3,7 @@ package pl.simplemethod.silentpackage.dataModel.GPU;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -20,6 +21,7 @@ import javax.validation.constraints.NotNull;
         "TotalMemory",
         "AvailableMemory"
 })
+@Component
 public class GPUTelemetry {
 
     @NotEmpty
@@ -37,13 +39,13 @@ public class GPUTelemetry {
     @NotEmpty
     @JsonProperty("RevisionID")
     public String revisionID;
-    @NotEmpty
+    @NotNull
     @JsonProperty("CurrentTemp")
     public Integer currentTemp;
-    @NotEmpty
+    @NotNull
     @JsonProperty("TotalMemory")
     public Integer totalMemory;
-    @NotEmpty
+    @NotNull
     @JsonProperty("AvailableMemory")
     public Integer availableMemory;
 
@@ -56,14 +58,14 @@ public class GPUTelemetry {
 
     /**
      *
-     * @param revisionID
-     * @param totalMemory
-     * @param availableMemory
-     * @param driverVersion
-     * @param name
-     * @param currentTemp
-     * @param driverBranch
-     * @param deviceID
+     * @param revisionID Revision device.
+     * @param totalMemory Total allocated memory.
+     * @param availableMemory Total available memory to use.
+     * @param driverVersion Version on driver.
+     * @param name Model of cards.
+     * @param currentTemp Current temperature.
+     * @param driverBranch Branch od driver.
+     * @param deviceID ID of device in Windows management.
      */
     public GPUTelemetry(String name, String driverVersion, String driverBranch, String deviceID, String revisionID, Integer currentTemp, Integer totalMemory, Integer availableMemory) {
         super();

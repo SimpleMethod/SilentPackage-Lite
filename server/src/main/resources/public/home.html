@@ -1,0 +1,236 @@
+<div class="container-fluid" ng-init="get_telemetry(this)">
+    <div class="row">
+        <div class="col-lg-12 col-xl-12" ng-if="::(motherboardEnable && cpuEnable && ramEnable && hddEnable)" >
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Informacje o specyfikacji</h6>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="col">
+                                <label class="col-form-label">Model płyty głównej: {{motherboardMainboardName}}</label>
+                            </div>
+                            <div class="col">
+                                <label class="col-form-label">Całkowita ilość pamięci RAM: {{ramTotalPhysicalMemory}} GB</label>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <label class="col-form-label">Model procesora: {{motherboardProcessorVersion}}</label>
+                            </div>
+                            <div class="col" ng-if="gpuEnable">
+                                <label class="col-form-label">Model karty graficznej: {{gpuName}}</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-xl-12" ng-if="motherboardEnable">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Informacje o płycie głównej</h6>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="col">
+                                <label class="col-form-label">Producent płyty głównej: {{motherboardMainboardManufacturer}}</label>
+                            </div>
+                            <div class="col">
+                                <label class="col-form-label">Producent BIOS: {{motherboardBiosVendor}}</label>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <label class="col-form-label">Model: {{motherboardMainboardName}}</label>
+                            </div>
+                            <div class="col">
+                                <label class="col-form-label">Wersja BIOS: {{motherboardBiosVersion}}</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-xl-12" ng-if="cpuEnable">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Procesor</h6>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="col">
+                            <label class="col-form-label">Producent: {{motherboardProcessorManufacturer}} </label>
+                        </div>
+                        <div class="col">
+                            <label class="col-form-label">Model: {{motherboardProcessorVersion}} </label>
+                        </div>
+                        <div class="col">
+                            <label class="col-form-label">Dostępna ilość rdzeni: {{motherboardProcessorCoreCount}} </label>
+                        </div>
+                        <div class="col">
+                            <label class="col-form-label">Dostępna ilość wątków: {{motherboardProcessorThreadCount}} </label>
+                        </div>
+                    </div>
+
+                    <div id="accordion">
+                        <div class="col card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Temperatury
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="form-row">
+                                    <div class="card col" style="width: 18rem;" ng-repeat="x in cpuCpuTemperature">
+                                        <div class="card-body">
+                                            <p>Typ: {{x.Name}}</p>
+                                            <p>Temperatura: {{x.Temperature}}°C</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col card">
+                            <div class="card-header" id="headingTwo">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Taktowanie
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                <div class="form-row">
+                                    <div class="card col" style="width: 18rem;" ng-repeat="x in cpuCpuClock">
+                                        <div class="card-body">
+                                            <p>Typ: {{x.Name}}</p>
+                                            <p>Taktowanie: {{x.Clock}} MHz</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col card">
+                            <div class="card-header" id="headingThree">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Obciążenie
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                <div class="form-row">
+                                    <div class="card col" style="width: 18rem;" ng-repeat="x in cpuCpuLoad">
+                                        <div class="card-body">
+                                            <p>Typ: {{x.Name}}</p>
+                                            <p>Obciążenie: {{x.Load}} %</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-xl-12" ng-if="ramEnable">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Pamięć RAM</h6>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="col">
+                            <label class="col-form-label">Całkowita ilość pamięci ram: {{ramTotalPhysicalMemory}} GB</label>
+                        </div>
+                        <div class="col">
+                            <label class="col-form-label">Dostępna ilość pamięci ram: {{ramTotalAvailableMemory}} KB</label>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="card col" style="width: 18rem;" ng-repeat="x in motherboardMemory.slice(0, 4)">
+                            <div class="card-body">
+                                <p>Nazwa producenta: {{x.MemoryDeviceManufacturer}}</p>
+                                <p>Oznaczenie: {{x.MemoryDevicePartNumber}}</p>
+                                <p>Kanał pamięci: {{x.MemoryDeviceLocator}}</p>
+                                <p>Bank pamięci: {{x.MemoryDeviceBankLocator}}</p>
+                                <p>Taktowanie pamięci: {{x.MemorySpeed}} MHz</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-xl-12" ng-if="hddEnable">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Dyski twarde</h6>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="card col" style="width: 18rem;" ng-repeat="x in hddArray">
+                            <div class="card-body">
+                                <p>Nazwa : {{x.DriveName}}</p>
+                                <p>Wersja oprogramowania: {{x.FirmwareVersion}}</p>
+                                <p>Ścieżka logiczna: {{x.LogicalDriveName}}</p>
+                                <p>Całkowity rozmiar: {{x.TotalSize/1024/1024/1024}} GB</p>
+                                <p>Dostępna wolna pamięć: {{x.TotalFreeSpace/1024/1024}} MB</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-xl-12" ng-if="gpuEnable">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Zewnętrzny układ graficzny</h6>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="col">
+                                <label class="col-form-label">Nazwa: {{gpuName}}</label>
+                            </div>
+                            <div class="col">
+                                <label class="col-form-label">Wersja sterownika: {{gpuDriverVersion}}</label>
+                            </div>
+                            <div class="col">
+                                <label class="col-form-label">Gałąź sterownika: {{gpuDriverBranch}}</label>
+                            </div>
+                            <div class="col">
+                                <label class="col-form-label">Indentyfikator karty: {{gpuDeviceID}}</label>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <label class="col-form-label">Rewizja sprzetu: {{gpuRevisionID}}</label>
+                            </div>
+                            <div class="col">
+                                <label class="col-form-label">Aktualna temperatura: {{gpuCurrentTemp}}°C</label>
+                            </div>
+                            <div class="col">
+                                <label class="col-form-label">Całkowita pamięć vRAM: {{gpuTotalMemory}} KB</label>
+                            </div>
+                            <div class="col">
+                                <label class="col-form-label">Dostępna pamięć vRAM: {{gpuAvailableMemory}} KB</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+</script>

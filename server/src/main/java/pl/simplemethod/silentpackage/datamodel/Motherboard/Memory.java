@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -43,11 +42,11 @@ public class Memory {
 
     /**
      *
-     * @param memorySpeed
-     * @param memoryDevicePartNumber
-     * @param memoryDeviceLocator
-     * @param memoryDeviceManufacturer
-     * @param memoryDeviceBankLocator
+     * @param memorySpeed Memory speed in MHz.
+     * @param memoryDevicePartNumber Model of memory.
+     * @param memoryDeviceLocator Number of channel.
+     * @param memoryDeviceManufacturer Memory manufacturer.
+     * @param memoryDeviceBankLocator Number of bank.
      */
     public Memory(String memoryDeviceManufacturer, String memoryDevicePartNumber, String memoryDeviceLocator, String memoryDeviceBankLocator, String memorySpeed) {
         super();

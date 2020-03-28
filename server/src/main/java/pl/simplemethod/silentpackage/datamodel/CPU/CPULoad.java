@@ -3,6 +3,7 @@ package pl.simplemethod.silentpackage.dataModel.CPU;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -14,6 +15,7 @@ import javax.validation.constraints.NotEmpty;
         "Name",
         "Load"
 })
+@Component
 public class CPULoad {
 
     @NotEmpty
@@ -32,8 +34,8 @@ public class CPULoad {
 
     /**
      *
-     * @param load
-     * @param name
+     * @param load Current value of load core CPU in %.
+     * @param name Name of type sensors.
      */
     public CPULoad(String name, Integer load) {
         super();

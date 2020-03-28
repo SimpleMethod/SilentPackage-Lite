@@ -3,6 +3,7 @@ package pl.simplemethod.silentpackage.dataModel.RAM;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -12,12 +13,14 @@ import javax.validation.constraints.NotNull;
         "TotalPhysicalMemory",
         "TotalAvailableMemory"
 })
+
+@Component
 public class RAMTelemetry {
 
-    @NotEmpty
+    @NotNull
     @JsonProperty("TotalPhysicalMemory")
     public Integer totalPhysicalMemory;
-    @NotEmpty
+    @NotNull
     @JsonProperty("TotalAvailableMemory")
     public Double totalAvailableMemory;
 
@@ -30,8 +33,8 @@ public class RAMTelemetry {
 
     /**
      *
-     * @param totalAvailableMemory
-     * @param totalPhysicalMemory
+     * @param totalAvailableMemory The size of the available RAM.
+     * @param totalPhysicalMemory Total amount of RAM.
      */
     public RAMTelemetry(Integer totalPhysicalMemory, Double totalAvailableMemory) {
         super();

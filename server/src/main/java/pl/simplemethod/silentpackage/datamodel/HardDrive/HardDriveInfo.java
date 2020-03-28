@@ -3,6 +3,7 @@ package pl.simplemethod.silentpackage.dataModel.HardDrive;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -17,6 +18,7 @@ import javax.validation.constraints.NotNull;
         "TotalSize",
         "TotalFreeSpace"
 })
+@Component
 public class HardDriveInfo {
 
     @NotEmpty
@@ -47,12 +49,12 @@ public class HardDriveInfo {
 
     /**
      *
-     * @param logicalDriveName
-     * @param totalSize
-     * @param totalFreeSpace
-     * @param format
-     * @param driveName
-     * @param firmwareVersion
+     * @param logicalDriveName Logical location of disc.
+     * @param totalSize Total size of disc in bytes.
+     * @param totalFreeSpace Total free space on disc in bytes.
+     * @param format Format of disc example: NTFS, FAT32 etc.
+     * @param driveName Model of disc.
+     * @param firmwareVersion Firmware installed on disc.
      */
     public HardDriveInfo(String driveName, String firmwareVersion, String logicalDriveName, String format, Long totalSize, Long totalFreeSpace) {
         super();

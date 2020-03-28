@@ -3,10 +3,10 @@ package pl.simplemethod.silentpackage.dataModel.CPU;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -14,6 +14,7 @@ import javax.validation.constraints.NotEmpty;
         "Name",
         "Temperature"
 })
+@Component
 public class CPUTemperature {
 
     @NotEmpty
@@ -30,8 +31,8 @@ public class CPUTemperature {
     }
 
     /**
-     * @param name
-     * @param temperature
+     * @param name Name of type sensors.
+     * @param temperature Temperature of Core CPU in celsius.
      */
     public CPUTemperature(String name, Integer temperature) {
         super();

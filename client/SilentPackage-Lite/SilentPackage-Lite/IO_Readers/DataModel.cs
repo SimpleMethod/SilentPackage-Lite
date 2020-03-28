@@ -63,5 +63,28 @@ namespace SilentPackage_Lite.IO_Readers
             }
 
         }
+
+
+        public class ProcessListModel
+        {
+            [JsonPropertyName("ProcessList")]
+            public List<ProcessList> ProcessLists { get; set; }
+        }
+
+        public class ProcessList
+        {
+            public ProcessList(string name, long idProcess, string timeStart)
+            {
+                Name = name;
+                IdProcess = idProcess;
+                TimeStart = timeStart;
+            }
+
+            public string Name { get; set; }
+            public long IdProcess { get; set; }
+            public string TimeStart { get; set; }
+
+        }
+
     }
 }

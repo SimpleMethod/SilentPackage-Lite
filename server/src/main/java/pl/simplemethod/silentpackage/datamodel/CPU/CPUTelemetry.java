@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -14,6 +15,7 @@ import javax.validation.constraints.NotEmpty;
         "CpuClock",
         "CpuLoad"
 })
+@Component
 public class CPUTelemetry {
     @NotEmpty(message = "The CpuTemperature list cannot be empty.")
     @JsonProperty("CpuTemperature")
@@ -34,9 +36,9 @@ public class CPUTelemetry {
 
     /**
      *
-     * @param cpuTemperature
-     * @param cpuLoad
-     * @param cpuClock
+     * @param cpuTemperature Lists of CPUTemperature class.
+     * @param cpuLoad Lists of CPULoad class.
+     * @param cpuClock Lists of CPUClock class.
      */
     public CPUTelemetry(List<CPUTemperature> cpuTemperature, List<CPUClock> cpuClock, List<CPULoad> cpuLoad) {
         super();
