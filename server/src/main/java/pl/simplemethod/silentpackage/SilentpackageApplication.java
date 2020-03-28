@@ -3,10 +3,11 @@ package pl.simplemethod.silentpackage;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import pl.simplemethod.silentpackage.webController.RESTServices;
 
 
 @SpringBootApplication
-public class SilentpackageApplication {
+public class SilentpackageApplication extends RESTServices {
 
     /**
      * Creating a new system process and open web browser.

@@ -36,6 +36,7 @@ public class RESTServices {
     {
         cpuTelemetry=raw;
       return new ResponseEntity<>(HttpStatus.OK);
+
     }
 
     /**
