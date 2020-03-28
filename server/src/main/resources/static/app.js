@@ -1,5 +1,5 @@
 var app = angular.module("myApp", ["ngRoute", "ngCookies"]).controller("MultiController");
-
+let urlAddress="http://127.0.0.1:8090/1.0/";
 app.config(function($routeProvider) {
     $routeProvider
         .when("/", {
@@ -20,7 +20,7 @@ app.controller('HomeController', function ($scope, $http, $cookies, $interval) {
     $scope.get_telemetry = function () {
 
         $http({
-            url: 'http://127.0.0.1:8090/1.0/cpu',
+            url: urlAddress+'cpu',
             method: 'GET',
             contentType: 'application/json'
         }).then(
@@ -36,7 +36,7 @@ app.controller('HomeController', function ($scope, $http, $cookies, $interval) {
         );
 
         $http({
-            url: 'http://127.0.0.1:8090/1.0/motherboard',
+            url: urlAddress+'motherboard',
             method: 'GET',
             contentType: 'application/json'
         }).then(
@@ -61,7 +61,7 @@ app.controller('HomeController', function ($scope, $http, $cookies, $interval) {
         );
 
         $http({
-            url: 'http://127.0.0.1:8090/1.0/gpu',
+            url: urlAddress+'gpu',
             method: 'GET',
             contentType: 'application/json'
         }).then(
@@ -81,7 +81,7 @@ app.controller('HomeController', function ($scope, $http, $cookies, $interval) {
         );
 
         $http({
-            url: 'http://127.0.0.1:8090/1.0/ram',
+            url: urlAddress+'ram',
             method: 'GET',
             contentType: 'application/json'
         }).then(
@@ -95,7 +95,8 @@ app.controller('HomeController', function ($scope, $http, $cookies, $interval) {
         );
 
         $http({
-            url: 'http://127.0.0.1:8090/1.0/harddrive',
+
+            url:  urlAddress+'harddrive',
             method: 'GET',
             contentType: 'application/json'
         }).then(
@@ -112,7 +113,7 @@ app.controller('HomeController', function ($scope, $http, $cookies, $interval) {
 
 app.controller('ProcessListController', function ($scope, $http) {
             $http({
-                url: 'http://127.0.0.1:8090/1.0/processlist',
+                url:  urlAddress+'processlist',
                 method: 'GET',
                 contentType: 'application/json'
             }).then(
