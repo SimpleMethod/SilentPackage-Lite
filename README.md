@@ -48,7 +48,7 @@ Technology list:
 5. Visual Studio with the ReSharper extension.
 
 ## 3. Used the external library 
-The source code of Open Hardware Monitor was used to restore the library used to collect device information. Fork of the library was to port to newer version of .NET Framework and add functionality of returning data in the form of JSON files and add telemetry of the RAM memory.
+The source code of Open Hardware Monitor was used to collect device information. Fork of the library was to port to newer version of .NET Framework and add functionality of returning data in the form of JSON files and add telemetry of the RAM memory.
 Fork is available at the address: [https://github.com/SimpleMethod/openhardwaremonitor](https://github.com/SimpleMethod/openhardwaremonitor)
 
 ## 4. Graphical interface
