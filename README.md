@@ -1,60 +1,60 @@
-
 # SilentPackage-Lite
 
-Projekt SilentPackage-Lite ma na celu umożliwić monitorowanie pracy Systemu Windows.
+The SilentPackage-Lite project is designed to allow monitoring of Windows system functioning.
 
 
-Projekt wykonał Michał Młodawski (1ID21A) [m.mlodawski@simplemethod.io](mailto:m.mlodawski@simplemethod.io)
+The project was developed by Michał Młodawski (1ID21A) [m.mlodawski@simplemethod.io](mailto:m.mlodawski@simplemethod.io)
 
-Podział prac w zespole: 
-Wszystko wykonał Michał Młodawski 
-Temat pracy Inżynierskiej:
-System meteorologiczny zrealizowany w technologii Internetu rzeczy.
-Temat pracy Magisterskiej:
-Generowanie modelu pogodowego w oparciu o system meteorologiczny zrealizowany w technologii Internetu rzeczy.
+Teamwork division: 
+Michał Młodawski did everything 
 
-
-Lista funkcjonalności: 
-1.	Pobieranie informacji  o procesorze, producent i model oraz temperaturze, obciążeniu i taktowaniu każdego z rdzenia procesora.
-2.	Pobieranie informacji płyty głównej, nazwa producenta, model, wersja BIOS oraz producent BIOS.
-3.	Pobieranie informacji o dedykowanej karcie graficznej. Umożliwia pobranie takich danych jak: Producent, model, wersja sterownika, gałąź sterownika, temperaturze rdzenia, ilości całkowitej pamięci vRAM i ilości dostępnej pamięci do alokacji vRMA.
-4.	Pobranie informacji na temat dysków twardych w tym: Nazwy dysku, formatu, lokalizacji, ilości wolnego oraz zajętego miejsca.
-5.	Pobieranie informacji o zainstalowanej pamięci RAM w tym producencie, modelu, prędkości, numerze banku i ilości wolnego miejsca.
-6.	Listy procesów z nazwą, identyfikatorem oraz czasem startu procesu.
-7.	Graficzny interfejs dostępny z poziomu przeglądarki pracujący w koncepcji „jednej strony” obsługujący zapytania AJAX.
-8.	Dostęp do API w celu rozszerzenia projektu o dodatkowe punkty wyjścia informacji. 
+The topic of engineering work:
+Meteorological system based on the Internet of things.
 
 
-Spis technologii:
- - .NET w aplikacji do pobierania telemetrii systemu Windows
-	 - Biblioteka OpenHardwareMonitor 
-	 - Biblioteka  Json.NET
-- JAVA w kliencie umożliwiającym prezentację danych.
+
+
+List of functionalities: 
+1. Getting information about the CPU, manufacturer and model, as a temperature, load and clock of each processor core.
+2. Getting information about the motherboard, manufacturer, model, BIOS version and BIOS manufacturer.
+3. Getting information about the dedicated graphics card. Allows users to download data such as: Manufacturer, model, driver version, driver branch, core temperature, total vRAM and available memory for vRAM allocation.
+4. Getting information about hard drives including: Disk name, format, location, free and used space.
+5. Getting information about installed RAM including manufacturer, model, speed, bank number and free space.
+6. Process lists with the name, identifier and start time of the process.
+7. A graphical interface available from the web browser operating in the concept of "one page" handling AJAX requests.
+8. Access to API.
+
+
+Technology list:
+ - .NET in Windows telemetry application:
+	 - OpenHardwareMonitor Library 
+	 - Json.NET Library
+- JAVA in the client for the display data:
    - Spring Framework 
 
-## 1. Użyte języki programowania
+## 1. Used programming languages
 
-1.	Java wraz z framework Spring do warstwy serwerowej. 
-2.	C# w wersji .Net Framework do warstwy agregacji danych.
-3.	HTML z wykorzystaniem frameworka Bootstrap, JavaScript z frameworkiem jQuery oraz AngularJS.
-4.	JSON jako format tekstowy dla przejrzystego uporządkowania danych.
+1. Java with Spring framework to the core server layer. 
+2. C# with .Net Framework version to the aggregation layer.
+3. HTML with Bootstrap framework, JavaScript with jQuery and AngularJS framework.
+4. JSON as a text format for transparent data.
 
-## 2. Wykorzystane oprogramowanie przy projektowaniu i wdrażaniu projektu
+## 2. software used in project design and implementation
 
-1.	Adobe XD CC w celu szybkiego prototypowanie interfejsu graficznego.
-2.	IntelliJ IDEA jako główne IDE do programowanie serwera.
-3.	JavaDoc do prowadzenia dokumentacji kodu. 
-4.	JetBrains WebStorm jako IDE do interfejsu graficznego.
-5.	Visual Studio z rozszerzeniem  ReSharper
+1. Adobe XD CC for quick prototyping of the graphical interface.
+2. IntelliJ IDEA as main IDE for core server layer.
+3. JavaDoc for code documentation. 
+4. JetBrains WebStorm as IDE for the graphical interface.
+5. Visual Studio with the ReSharper extension.
 
-## 3. Wykorzystane zewnętrznej biblioteki 
-Podczas pracy wykorzystano kod źródłowy Open Hardware Monitor w celu odtworzenia biblioteki służącej do pobierania informacji o urządzeniu. Fork biblioteki miał na celu port do nowszej wersji .NET Framework i dodanie funkcjonalności zawracania danych w postaci plików JSON oraz dodanie telemetrię pamięci ram.
-Fork dostępny jest pod adresem: [https://github.com/SimpleMethod/openhardwaremonitor](https://github.com/SimpleMethod/openhardwaremonitor)
+## 3. Used the external library 
+The source code of Open Hardware Monitor was used to restore the library used to collect device information. Fork of the library was to port to newer version of .NET Framework and add functionality of returning data in the form of JSON files and add telemetry of the RAM memory.
+Fork is available at the address: [https://github.com/SimpleMethod/openhardwaremonitor](https://github.com/SimpleMethod/openhardwaremonitor)
 
-## 4. Interfejs graficzny
+## 4. Graphical interface
 
-Strona główna interfejsu graficznego:
-![Strona główna](https://raw.githubusercontent.com/SimpleMethod/SilentPackage-Lite/master/doc/mainPage.png)
+Graphical interface home page:
+![Home](https://raw.githubusercontent.com/SimpleMethod/SilentPackage-Lite/master/doc/mainPage.png)
 
-Konsola Javy z poziomu uruchomionej aplikacji:
+Java console of the running application:
 ![Cmd](https://raw.githubusercontent.com/SimpleMethod/SilentPackage-Lite/master/doc/console.png)
