@@ -1,0 +1,11 @@
+Co zostało zrealizowane w aktualnym etapie:
+W tym etapie zrealizowano wszystkie założenia projektu w tym warstwę serwerową oraz część projektu odpowiedzialną za klienta wraz z interfejsem graficznym. Została także sporządzona pierwsza wersja opracowania projektu. Sporządzono także testy jednostkowe dla obu części projektu.
+
+Co będzie realizowane w kolejnym etapie:
+Ewentualne poprawki w dokumentacji.
+
+Statyki kodu źródłowego:
+Stworzono 35 plików, sumaryczna ilość linijek kodu wynosi 2922.
+
+Statyki plików tekstowych:
+Stworzono dokumentację w formacie .pdf o wielkości 865 KB. Plik zawiera 5008 znaków ze spacjami.

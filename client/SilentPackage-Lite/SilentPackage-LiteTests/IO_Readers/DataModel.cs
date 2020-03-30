@@ -6,9 +6,8 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using OpenHardwareMonitor.Collections;
 
-namespace SilentPackage_Lite.IO_Readers.Tests
+namespace SilentPackage_LiteTests.IO_Readers
 {
-    
     class DataModel
     {
         public class MemoryRam

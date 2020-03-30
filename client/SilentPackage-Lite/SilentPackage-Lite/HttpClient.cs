@@ -21,6 +21,12 @@ namespace SilentPackage_Lite
         /// <returns>Server response.</returns>
         public string MakeWebRequest(string url, string method, string data)
         {
+            if (string.IsNullOrEmpty(data))
+            {
+                Console.WriteLine("Error");
+                return "Error";
+            }
+            //Console.WriteLine(data + @"\n");
             var webRequest = WebRequest.Create(url);
             webRequest.Method = method;
             webRequest.ContentType = @"application/json; charset=utf-8";

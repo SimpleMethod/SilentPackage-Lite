@@ -1,13 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SilentPackage_Lite.IO_Readers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using SilentPackage_Lite.IO_Readers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace SilentPackage_Lite.IO_Readers.Tests
+namespace SilentPackage_LiteTests.IO_Readers.Tests
 {
     [TestClass()]
     public class TelemetryTests
@@ -29,18 +23,18 @@ namespace SilentPackage_Lite.IO_Readers.Tests
         }
 
         [TestMethod()]
-        public void MainboardSpecificationsTest()
+        public void MotherboardSpecificationsTest()
         {
             Telemetry telemetry = Telemetry.GetInstance();
-            string temp = telemetry.MainboardSpecifications();
+            string temp = telemetry.MotherboardSpecifications();
             Assert.IsNotNull(temp);
         }
 
         [TestMethod()]
-        public void DriveTelemetryTest()
+        public void HardDriveTelemetryTest()
         {
             Telemetry telemetry = Telemetry.GetInstance();
-            string temp = telemetry.DriveTelemetry();
+            string temp = telemetry.HardDriveTelemetry();
             Assert.IsNotNull(temp);
         }
 
@@ -53,10 +47,10 @@ namespace SilentPackage_Lite.IO_Readers.Tests
         }
 
         [TestMethod()]
-        public void GetProcessListTest()
+        public void GetProcessListPsTest()
         {
             Telemetry telemetry = Telemetry.GetInstance();
-            string temp = telemetry.GetProcessList();
+            string temp = telemetry.GetProcessListPs();
             Assert.IsNotNull(temp);
         }
     }

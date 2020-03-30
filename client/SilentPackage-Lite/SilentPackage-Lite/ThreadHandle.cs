@@ -51,9 +51,9 @@ namespace SilentPackage_Lite
                 client.MakeWebRequest(url+"cpu", "POST", telemetry.CpuTelemetry());
                 client.MakeWebRequest(url + "ram", "POST", telemetry.RamTelemetry());
                 client.MakeWebRequest(url + "gpu", "POST", telemetry.GpuTelemetry());
-                client.MakeWebRequest(url + "motherboard", "POST", telemetry.MainboardSpecifications());
-                client.MakeWebRequest(url + "harddrive", "POST", telemetry.DriveTelemetry());
-                client.MakeWebRequest(url + "processlist", "POST", telemetry.GetProcessList());
+                client.MakeWebRequest(url + "motherboard", "POST", telemetry.MotherboardSpecifications());
+                client.MakeWebRequest(url + "harddrive", "POST", telemetry.HardDriveTelemetry());
+                client.MakeWebRequest(url + "processlist", "POST", telemetry.GetProcessListPs());
                 Thread.Sleep(1000);
             }
 

@@ -55,3 +55,6 @@ Fork dostępny jest pod adresem: [https://github.com/SimpleMethod/openhardwaremo
 
 Strona główna interfejsu graficznego:
 ![Strona główna](https://raw.githubusercontent.com/SimpleMethod/SilentPackage-Lite/master/doc/mainPage.png)
+
+Konsola Javy z poziomu uruchomionej aplikacji:
+![Cmd](https://raw.githubusercontent.com/SimpleMethod/SilentPackage-Lite/master/doc/console.png)

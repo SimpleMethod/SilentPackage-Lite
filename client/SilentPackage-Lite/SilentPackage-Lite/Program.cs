@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
 using SilentPackage_Lite.IO_Readers;
+
 namespace SilentPackage_Lite
 {
     class Program
@@ -22,23 +20,25 @@ namespace SilentPackage_Lite
         static void Main(string[] args)
         {
             var getConsoleWindow = GetConsoleWindow();
-           // ShowWindow(getConsoleWindow, SW_HIDE);
-           try
-           {
-               Process process = new Process();
-               process.StartInfo.UseShellExecute = false;
-               process.StartInfo.FileName = "java";
-               process.StartInfo.Arguments = "-jar " + Directory.GetCurrentDirectory() + @"\silentpackage.jar";
-               process.Start();
+            // ShowWindow(getConsoleWindow, SW_HIDE);
+            try
+            {
+               
+                Process process = new Process();
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.FileName = "java";
+                process.StartInfo.Arguments = "-jar \u0022" + @Directory.GetCurrentDirectory().ToString() + @"\silentpackage.jar " + "\u0022";
+                process.Start();
             }
-           catch (Exception e)
-           {
-               Console.WriteLine(e);
-           }
+            catch (UnauthorizedAccessException e)
+            {
+                Console.WriteLine(e);
+            }
             ThreadHandle handle = ThreadHandle.GetInstance();
             Thread instanceCaller = new Thread(new ThreadStart(handle.MainThread));
             instanceCaller.Start();
-        }
+            
         }
     }
+}
 

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
 using OpenHardwareMonitor.Hardware;
 using OpenHardwareMonitor.Collections;
 using System.Text.Json;
-
-
+using System.Management.Automation;
 namespace SilentPackage_Lite.IO_Readers
 {
     /// <summary>
@@ -97,7 +99,7 @@ namespace SilentPackage_Lite.IO_Readers
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    throw;
+                    return null;
                 }
                 computer.Close();
                 DataModel.CpuTelemetryModel cpuTelemetry = new DataModel.CpuTelemetryModel();
@@ -109,7 +111,7 @@ namespace SilentPackage_Lite.IO_Readers
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw;
+                return null;
             }
             
         }
@@ -129,10 +131,10 @@ namespace SilentPackage_Lite.IO_Readers
                 computer.Close();
                 return temp;
             }
-            catch (Exception e)
+            catch (IndexOutOfRangeException e)
             {
                 Console.WriteLine(e);
-                throw;
+                return null;
             }
         }
 
@@ -140,7 +142,7 @@ namespace SilentPackage_Lite.IO_Readers
         /// Getting motherboard and CPU specifications.
         /// </summary>
         /// <returns>Returned specifications in JSON format.</returns>
-        public string MainboardSpecifications()
+        public string MotherboardSpecifications()
         {
             try
             {
@@ -151,17 +153,17 @@ namespace SilentPackage_Lite.IO_Readers
                 computer.Close();
                 return temp;
             }
-            catch (Exception e)
+            catch (IndexOutOfRangeException e)
             {
                 Console.WriteLine(e);
-                throw;
+                return null;
             }
         }
         /// <summary>
         ///  Getting telemetry of hard drive.
         /// </summary>
         /// <returns>Returned telemetry in JSON format.</returns>
-        public string DriveTelemetry()
+        public string HardDriveTelemetry()
         {
             try
             {
@@ -182,11 +184,12 @@ namespace SilentPackage_Lite.IO_Readers
                 drivers.DriveQueue = queue;
                 return JsonSerializer.Serialize(drivers);
             }
-            catch (Exception e)
+            catch (IndexOutOfRangeException e)
             {
                 Console.WriteLine(e);
-                throw;
+                return null;
             }
+
         }
         [DllImport("kernel32.dll")]
         public static extern bool GetPhysicallyInstalledSystemMemory(out long totalMemoryInKilobytes);
@@ -208,14 +211,16 @@ namespace SilentPackage_Lite.IO_Readers
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw;
+                return null;
             }
         }
+
 
         /// <summary>
         ///  Getting process lists.
         /// </summary>
         /// <returns>Returned telemetry in JSON format.</returns>
+      //  [ObsoleteAttribute("This method has been deprecated. Use GetProcessListPs instead.", true)]
         public string GetProcessList()
         {
             try
@@ -228,21 +233,75 @@ namespace SilentPackage_Lite.IO_Readers
                     {
                         processLists.Add(new DataModel.ProcessList(preprocess.ProcessName, preprocess.Id, preprocess.StartTime.ToString()));
                     }
-                    catch (Exception e)
+                    catch (ArgumentOutOfRangeException e)
                     {
+                        Console.WriteLine(e);
+                        return null;
+                    }
+                    catch (Win32Exception e)
+                    {
+                        Console.WriteLine(e);
+                        return null;
                     }
                 }
 
                 processListModel.ProcessLists = processLists;
                 return JsonSerializer.Serialize(processListModel);
             }
-            catch (Exception e)
+            catch (Win32Exception e)
             {
                 Console.WriteLine(e);
-                throw;
+                return null;
             }
         }
 
+        /// <summary>
+        ///  Getting process lists.
+        /// </summary>
+        /// <returns>Returned telemetry in JSON format.</returns>
+        public string GetProcessListPs()
+        {
+            List<DataModel.ProcessList> processLists = new List<DataModel.ProcessList>();
+            DataModel.ProcessListModel processListModel = new DataModel.ProcessListModel();
+            using (PowerShell ps = PowerShell.Create())
+            {
+                ps.AddScript("ps");
+                Collection<PSObject> results = ps.Invoke();
+                foreach (var result in results)
+                {
+                    var baseObj = result.BaseObject;
+                    if (baseObj is Process)
+                    {
+                       
+                        var preprocess = baseObj as Process;
+                        try
+                        {
+                            var processName = preprocess.ProcessName;
+                            var processId = preprocess.Id;
+                            var startTime = preprocess.StartTime.ToString();
+                            processLists.Add(new DataModel.ProcessList(processName, processId, startTime));
+                        }
+                        catch (ArgumentOutOfRangeException e)
+                        {
+                            Console.WriteLine(e);
+                            return null;
+                        }
+                        catch (Win32Exception e)
+                        {
+                           // Console.WriteLine(e);
+                        }
+                        catch (InvalidOperationException e)
+                        {
+                           // Console.WriteLine(e);
+                        }
+                     
+                    }
+                    
+                }
+                processListModel.ProcessLists = processLists;
+                return JsonSerializer.Serialize(processListModel);
+            }
+        }
     }
 
 

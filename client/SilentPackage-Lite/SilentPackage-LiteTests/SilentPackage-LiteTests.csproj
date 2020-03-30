@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CA308327-4CE6-4A67-9A3F-AF860986F252}</ProjectGuid>
+    <ProjectGuid>{54871402-2365-49C0-AEA0-28B2E8C8F3D7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SilentPackage_LiteTests</RootNamespace>
@@ -97,12 +97,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\openhardwaremonitor\OpenHardwareMonitorLib.csproj">
+    <ProjectReference Include="..\..\openhardwaremonitor\OpenHardwareMonitorLib.csproj">
       <Project>{b0397530-545a-471d-bb74-027ae456df1a}</Project>
       <Name>OpenHardwareMonitorLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\SilentPackage-Lite\SilentPackage-Lite.csproj">
-      <Project>{7C29FA28-183A-4BE2-87D8-08D29041CAD8}</Project>
+      <Project>{0628B022-AD5D-46EF-B5A1-FD104153A8A6}</Project>
       <Name>SilentPackage-Lite</Name>
     </ProjectReference>
   </ItemGroup>
