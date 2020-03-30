@@ -29,7 +29,7 @@ Technology list:
  - .NET in Windows telemetry application:
 	 - OpenHardwareMonitor Library 
 	 - Json.NET Library
-- JAVA in the client for the display data:
+- JAVA in client for display data:
    - Spring Framework 
 
 ## 1. Used programming languages
