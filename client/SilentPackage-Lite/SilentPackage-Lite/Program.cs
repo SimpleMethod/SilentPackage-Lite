@@ -28,7 +28,7 @@ namespace SilentPackage_Lite
                 Process process = new Process();
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.FileName = "java";
-                process.StartInfo.Arguments = "-jar \u0022" + @Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\silentpackage.jar " + "\u0022";
+                process.StartInfo.Arguments = "-jar \u0022" + @Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\silentpackage.jar" + "\u0022";
                 process.Start();
             }
             catch (UnauthorizedAccessException e)
