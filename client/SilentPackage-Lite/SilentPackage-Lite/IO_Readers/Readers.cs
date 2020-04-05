@@ -288,11 +288,11 @@ namespace SilentPackage_Lite.IO_Readers
                         }
                         catch (Win32Exception e)
                         {
-                           // Console.WriteLine(e);
+                            return null;
                         }
                         catch (InvalidOperationException e)
                         {
-                           // Console.WriteLine(e);
+                            return null;
                         }
                      
                     }

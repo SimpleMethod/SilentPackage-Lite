@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using SilentPackage_Lite.IO_Readers;
@@ -27,7 +28,7 @@ namespace SilentPackage_Lite
                 Process process = new Process();
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.FileName = "java";
-                process.StartInfo.Arguments = "-jar \u0022" + @Directory.GetCurrentDirectory().ToString() + @"\silentpackage.jar " + "\u0022";
+                process.StartInfo.Arguments = "-jar \u0022" + @Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\silentpackage.jar " + "\u0022";
                 process.Start();
             }
             catch (UnauthorizedAccessException e)
