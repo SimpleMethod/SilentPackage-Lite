@@ -46,7 +46,7 @@ namespace SilentPackage_Lite.IO_Readers
         }
 
         /// <summary>
-        /// Getting processor telemetry, temeprature, clocking and processor load.
+        /// Getting processor telemetry, temperature, clocking and processor load.
         /// </summary>
         /// <returns>Returned telemetry in JSON format.</returns>
         public string CpuTelemetry()
@@ -220,7 +220,7 @@ namespace SilentPackage_Lite.IO_Readers
         ///  Getting process lists.
         /// </summary>
         /// <returns>Returned telemetry in JSON format.</returns>
-      //  [ObsoleteAttribute("This method has been deprecated. Use GetProcessListPs instead.", true)]
+        //  [ObsoleteAttribute("This method has been deprecated. Use GetProcessListPs instead.", true)]
         public string GetProcessList()
         {
             try
@@ -231,7 +231,17 @@ namespace SilentPackage_Lite.IO_Readers
                 {
                     try
                     {
-                        processLists.Add(new DataModel.ProcessList(preprocess.ProcessName, preprocess.Id, preprocess.StartTime.ToString()));
+                        string processName = preprocess.ProcessName;
+                        int processId = preprocess.Id;
+                        string startTime = "";
+                        try
+                        {
+                            startTime = preprocess.StartTime.ToString();
+                        }
+                        catch (Win32Exception)
+                        {
+                        }
+                        processLists.Add(new DataModel.ProcessList(processName, processId, startTime));
                     }
                     catch (ArgumentOutOfRangeException e)
                     {
@@ -267,18 +277,25 @@ namespace SilentPackage_Lite.IO_Readers
             {
                 ps.AddScript("ps");
                 Collection<PSObject> results = ps.Invoke();
-                foreach (var result in results)
+                foreach (PSObject result in results)
                 {
-                    var baseObj = result.BaseObject;
+                    object baseObj = result.BaseObject;
                     if (baseObj is Process)
                     {
-                       
-                        var preprocess = baseObj as Process;
+
+                        Process preprocess = baseObj as Process;
                         try
                         {
-                            var processName = preprocess.ProcessName;
-                            var processId = preprocess.Id;
-                            var startTime = preprocess.StartTime.ToString();
+                            string processName = preprocess.ProcessName;
+                            int processId = preprocess.Id;
+                            string startTime = "";
+                            try
+                            {
+                                startTime = preprocess.StartTime.ToString();
+                            }
+                            catch (Win32Exception)
+                            {
+                            }
                             processLists.Add(new DataModel.ProcessList(processName, processId, startTime));
                         }
                         catch (ArgumentOutOfRangeException e)
@@ -286,17 +303,14 @@ namespace SilentPackage_Lite.IO_Readers
                             Console.WriteLine(e);
                             return null;
                         }
-                        catch (Win32Exception e)
-                        {
-                            return null;
-                        }
                         catch (InvalidOperationException e)
                         {
+                            Console.WriteLine(e);
                             return null;
                         }
-                     
+
                     }
-                    
+
                 }
                 processListModel.ProcessLists = processLists;
                 return JsonSerializer.Serialize(processListModel);
