@@ -1,0 +1,12 @@
+Co zostało zrealizowane w aktualnym etapie:
+W tym etapie skupino się na poprawianiu błędów, które zostały ujawnione podczas testowania projektu. Poprawiono obsługę pobierania listy procesów, wykorzystują Windows PowerShell w celu ominięcia zabezpieczeń systemu Windows 10. 
+Zmniejszono wymaganą wersję .NET Framework z 4.7.2 do 4.6.1.
+
+Co będzie realizowane w kolejnym etapie:
+Podczas trzech etapów zrealizowano wszystkie cele projektu. Nie przewiduję wprowadzania dodatkowych zmian w projekcie.
+
+Statyki kodu źródłowego:
+Nie stworzono żadnych nowych plików źródłowych, poprawiono pliki odpowiedzialne za pobieranie listy procesów. 
+
+Statyki plików tekstowych:
+Nie stworzono żadnych nowych plików tekstowych.
