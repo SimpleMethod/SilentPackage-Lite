@@ -1,5 +1,5 @@
-﻿using SilentPackage_Lite.IO_Readers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SilentPackage_Lite.Controllers;
 
 namespace SilentPackage_LiteTests.IO_Readers.Tests
 {

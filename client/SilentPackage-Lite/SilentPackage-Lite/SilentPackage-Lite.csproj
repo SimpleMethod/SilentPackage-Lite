@@ -84,17 +84,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IO_Readers\DataModel.cs" />
-    <Compile Include="HttpClient.cs" />
+    <Compile Include="Models\DataModel.cs" />
+    <Compile Include="Controllers\HttpClient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IO_Readers\Readers.cs" />
+    <Compile Include="Controllers\Readers.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ThreadHandle.cs" />
+    <Compile Include="Controllers\ThreadHandle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -113,5 +113,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
