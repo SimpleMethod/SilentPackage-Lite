@@ -1,0 +1,8 @@
+﻿Co zostało zrealizowane w aktualnym etapie:
+W tym etapie wprowadzono zmiany w dokumentacji projektu.
+Co będzie realizowane w kolejnym etapie:
+Nie przewiduję wprowadzania dodatkowych zmian w projekcie.
+Statyki kodu źródłowego:
+Nie stworzono żadnych nowych plików źródłowych.
+Statyki plików tekstowych:
+Nie stworzono żadnych nowych plików tekstowych, edytowano jeden plik .pdf
